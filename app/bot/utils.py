@@ -1,23 +1,5 @@
-import requests
 import json
 from app.sys_logger import logger
-from app.settings import *
-
-
-def send_file(chat_id, file_name):
-    """
-        This method will send a file to the chat_id specified
-    """
-    url = "https://api.telegram.org/bot" + TOKEN + "/sendDocument"
-    files = {
-        'document': open(file_name, 'rb')
-    }
-    values = {
-        'chat_id': chat_id
-    }
-
-    r = requests.post(url, files=files, data=values)
-    print("[+] result : ", r.content)
 
 
 # The presentation log

@@ -1,4 +1,5 @@
 requests
 setuptools
 configparser
+tinydb
 python-telegram-bot==12.3.0
