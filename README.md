@@ -6,6 +6,9 @@ A Tricky-Hack to have your "Infinite-Storage API" using Telegram as a serving AP
 
 <img src="./images/demo.png" />
 
+BOT-LINK : https://t.me/omega_gram_bot
+API-LINK : https://ogram_api.ngrok.io
+
 ## Requirements
 
 - Python (3.x recommended)
