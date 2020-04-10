@@ -1,1 +1,1 @@
-python -m app.server.main
+python3 -m app.server.main
