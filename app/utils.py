@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+from os import remove
 import datetime
 from app.settings import *
 # We import the Class/module
@@ -101,7 +102,7 @@ def send_file(chat_id, file_name):
 
     success = []  # chunks send successfully
     failed = []  # chunks failed
-    final_map = {"datetime": datetime.datetime.now(), "cloud_map": [], "file_map": json_map_of_chunks}
+    final_map = {"datetime": str(datetime.datetime.now()), "cloud_map": [], "file_map": json_map_of_chunks}
 
     for key, val in json_map_of_chunks.items():
         file_id, dr_link = send_chunk(chat_id, s.chunks_directory + val)
@@ -121,6 +122,8 @@ def send_file(chat_id, file_name):
                 "chunk_name": val,
                 "tmp_link": dr_link
             })
+            # We delete/remove the chunk file
+            remove(s.chunks_directory + val)
 
     print("[+] REPORTS !")
     print("[+] {} Succeed, {} Failed !".format(len(success), len(failed)))
@@ -129,6 +132,9 @@ def send_file(chat_id, file_name):
 
     # We set the map
     s.set_map(final_map)
+
+    # We write the json-map
+    s.write_json_map(file_name)
 
     # We print the new map
     print("[+] MAP : ", final_map)
