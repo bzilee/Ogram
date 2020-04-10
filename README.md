@@ -1,6 +1,10 @@
+<img src="./images/logo.jpg" />
+
 # Ogram
 
 A Tricky-Hack to have your "Infinite-Storage API" using Telegram as a serving API!
+
+<img src="./images/demo.png" />
 
 ## Requirements
 
