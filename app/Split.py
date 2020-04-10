@@ -19,7 +19,7 @@ import argparse
 class Split:
 
     def __init__(self, chunks_directory="./chunks/", json_map_directory="./json_maps/", data_directory="./datas/",
-                 maximum_size_per_chunk=19999999, minimum_number_of_chunk=3, maximum_number_of_chunk=99999):
+                 maximum_size_per_chunk=15000000, minimum_number_of_chunk=3, maximum_number_of_chunk=99999):
         self.data_directory = data_directory
         self.json_map_directory = json_map_directory
         self.chunks_directory = chunks_directory
