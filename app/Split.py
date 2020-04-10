@@ -109,7 +109,7 @@ class Split:
         if not path.exists(self.json_map_directory):
             makedirs(self.json_map_directory)
 
-        json_map_file_name = self.json_map_directory + "/m_" + (file_name.replace(" ", "").split("/")[-1]) + ".json"
+        json_map_file_name = self.json_map_directory + "m_" + (file_name.replace(" ", "").split("/")[-1]) + ".json"
         with open(json_map_file_name, 'w+') as json_file_map:
             json.dump(self.map, json_file_map)
             print("[+] Map saved in '" + json_map_file_name + "'")

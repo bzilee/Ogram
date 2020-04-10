@@ -10,4 +10,6 @@ config.txt
 .idea
 *.json
 *.txt
-static/*
+./app/server/static/*
+json_maps/*
+chunks/*
