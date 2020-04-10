@@ -102,7 +102,7 @@ def send_file(chat_id, file_name):
 
     success = []  # chunks send successfully
     failed = []  # chunks failed
-    final_map = {"datetime": str(datetime.datetime.now()), "cloud_map": [], "file_map": json_map_of_chunks}
+    final_map = {"cloud_map": [], "file_map": json_map_of_chunks}
 
     for key, val in json_map_of_chunks.items():
         file_id, dr_link = send_chunk(chat_id, s.chunks_directory + val)
@@ -110,17 +110,18 @@ def send_file(chat_id, file_name):
             # We append the chunk as a failed
             failed.append({
                 "id": key,
-                "key": val,
+                "key": val
             })
         else:
             success.append({
                 "id": key,
-                "key": val,
+                "key": val
             })
             final_map["cloud_map"].append({
                 "chunk_id": file_id,
                 "chunk_name": val,
-                "tmp_link": dr_link
+                "tmp_link": dr_link,
+                "datetime": str(datetime.datetime.now())
             })
             # We delete/remove the chunk file
             remove(s.chunks_directory + val)
