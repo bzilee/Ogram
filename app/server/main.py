@@ -11,6 +11,7 @@ CORS(app, support_credentials=True)
 
 app.config['Secret'] = "Secret"
 app.config['UPLOAD_FOLDER'] = "./app/server/static/"
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 
 
 @app.route('/', methods=['GET'])  # To prevent Cors issues
