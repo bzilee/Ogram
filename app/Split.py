@@ -98,7 +98,7 @@ class Split:
         """
             This method will write on a json map
         """
-        json_map_file_name = "split_map_" + (file_name.replace(" ", "").split("/")[-1]) + ".json"
+        json_map_file_name = "m_" + (file_name.replace(" ", "").split("/")[-1]) + ".json"
         with open(json_map_file_name, 'w+') as json_file_map:
             json.dump(self.map, json_file_map)
             print("[+] Map saved in '" + json_map_file_name + "'")
