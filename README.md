@@ -1,6 +1,6 @@
 # Ogram
 
-A Tricky-Hacking-Script to transform your Telegram to an unlimited Cloud Storage and use it as a serving API!
+A Tricky-Hack to have your "Infinite-Storage API" using Telegram as a serving API!
 
 ## Requirements
 
