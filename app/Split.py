@@ -137,9 +137,7 @@ class Split:
                 to_print = to_print[re_size['chunk']:]
                 i += 1
             print("[+] Decompose done.")
-
-            self.write_json_map(file_name)
-
+            # self.write_json_map(file_name)
             print("[+] -------")
 
 

@@ -42,7 +42,7 @@ def upload_chunk(chat_id, file_name):
     :param file_name:
     :return:
     """
-    print("[+] Sending the file")
+    print("[+] Uploading the payload")
     url = "https://api.telegram.org/bot" + TOKEN + "/sendDocument"
     files = {
         'document': open(file_name, 'rb')
@@ -60,6 +60,7 @@ def send_chunk(chat_id, chunk_name):
     """
         This method will send a file to the chat_id specified
     """
+    print("[+] ---")
     print("[+] Sending chunk : ", chunk_name)
 
     # We upload the chunk and get the result as dict
@@ -126,3 +127,11 @@ def send_file(chat_id, file_name):
     for elt in failed:
         print("[+] {}: {}".format(elt["id"], elt["key"]))
 
+    # We set the map
+    s.set_map(final_map)
+
+    # We print the new map
+    print("[+] MAP : ", final_map)
+
+
+send_file("267092256", "/home/d4rk3r/Pictures/Screenshot from 2020-03-14 18-30-02 - 1.png")
