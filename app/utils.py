@@ -5,7 +5,7 @@ from os import remove
 import datetime
 from hashlib import md5
 from app.settings import *
-# We import the Class/module
+
 from app.Split import Split
 
 
@@ -151,33 +151,28 @@ def send_file(chat_id, file_name):
 
     # We split the file First
     # We instantiate the Split class by passing the chunk directory
-    s = Split(chunks_directory="../chunks/")
+    sp = Split(chunks_directory="../chunks/")
 
     # We decompose the file in multiple chunks
-    s.decompose(file_name)
+    sp.decompose(file_name)
 
-    # We can print the map of the file (All file will cost <= 15MB)
-    json_map_of_chunks = s.get_map()
     # We get the md5-sum of the file
     md5_sum = get_md5_sum(file_name)
 
     # We build our final map
     final_map = {
         "md5_sum": md5_sum,
-        "cloud_map": [],
-        "file_map": json_map_of_chunks
+        "cloud_map": [],  # The cloud json-map of all chunks
+        "file_map": sp.get_map()  # The local json-map of all chunks
     }
 
-    success, failed, final_map = send_all_chunks(chat_id, s.chunks_directory, final_map, json_map_of_chunks)
+    success, failed, final_map = send_all_chunks(chat_id, sp.chunks_directory, final_map, sp.get_map())
 
     # We set the map
-    s.set_map(final_map)
+    sp.set_map(final_map)
 
     # We write the json-map
-    s.write_json_map(md5_sum)
-
-    # We print the new map
-    print("[+] MAP : ", final_map)
+    sp.write_json_map(md5_sum)
 
 
 send_file("267092256", "/home/d4rk3r/Downloads/Telegram Desktop/video_2020-01-07_11-18-13.mp4")
