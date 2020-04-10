@@ -1,13 +1,19 @@
-<img src="./images/logo.jpg" />
+<center>
+  <img src="./images/logo.jpg" />
 
-# Ogram
+  # Ogram
 
-A Tricky-Hack to have your "Infinite-Storage API" using Telegram as a serving API!
+  A Tricky-Hack to have your "INFINITE-STORAGE-API" using Telegram as a serving API !
 
-<img src="./images/demo.png" />
+  <img src="./images/demo.png" />
+</center>
 
-BOT-LINK : https://t.me/omega_gram_bot
-API-LINK : https://ogram_api.ngrok.io
+## Links
+
+Ogram split a file >= 19MB, in multiples chunks and send it throught the Telegram-bot. All the links of the running project :
+- [THE BOT-LINK (omega_gram_bot)](https://t.me/omega_gram_bot) <br>
+- [THE API-LINK (ogram_api)](https://ogram_api.ngrok.io)
+- [THE DOCUMENTATION-API](https://documenter.getpostman.com/view/2696027/SzYgRaw1?version=latest)
 
 ## Requirements
 
@@ -23,6 +29,10 @@ API-LINK : https://ogram_api.ngrok.io
 - Go to your Telegram Settings > Advanced > Automatic media download and deactive it, that will prevent telegram to automatically download a chunk of a file you're uploading !
 .
 - Update your `example.cofig.txt` file to `config.txt` and provide a valid token if you're using you're personnal bot.
+- Install dependencies:
+```shell
+pip3 install -r requirements.txt
+```
 
 ## How to launch
 
@@ -35,8 +45,6 @@ python -m app.bot.main
 ```shell script
 python -m app.server.main
 ```
-
-The documentation is available here : [DOCUMENTATION-API](https://documenter.getpostman.com/view/2696027/SzYgRaw1?version=latest)
 
 ## Tests
 
