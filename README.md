@@ -19,7 +19,7 @@ A Tricky-Hack to have your "Infinite-Storage API" using Telegram as a serving AP
 - Mute notification of the bot (Optionnal but recommended, to notreceive notifications for each chunk you're sending)
 - Go to your Telegram Settings > Advanced > Automatic media download and deactive it, that will prevent telegram to automatically download a chunk of a file you're uploading !
 .
-- Update your `example.cofig.txt` file and provide a valid token if you're using you're personnal bot.
+- Update your `example.cofig.txt` file to `config.txt` and provide a valid token if you're using you're personnal bot.
 
 ## How to launch
 
@@ -63,6 +63,7 @@ The documentation is available here : [DOCUMENTATION-API](https://documenter.get
   "status": "success"
 }
 ```
+**NB: The Limit size have been fixed to 100MB as a limit for the APi, but it can be changed !**
 
 ## Author
 

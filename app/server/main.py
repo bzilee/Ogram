@@ -62,13 +62,17 @@ def upload():
                 "status": "error",
                 "message": "Some parameters are missing, check your request again !"
             })
-        # Let's allow all Origin requests
-        response.headers.add('Access-Control-Allow-Origin', '*')  # To prevent Cors issues
-
-        return response
 
     except Exception as es:
         print(es)
+        response = jsonify({
+            "status": "error",
+            "message": "Request Entity Too Large: The data value transmitted exceeds the capacity limit.!"
+        })
+
+    # Let's allow all Origin requests
+    response.headers.add('Access-Control-Allow-Origin', '*')  # To prevent Cors issues
+    return response
 
 
 @app.route('/download/<file_key>', methods=['GET'])  # To prevent Cors issues
@@ -96,4 +100,4 @@ def index2(file_key):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=9000)
