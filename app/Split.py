@@ -158,14 +158,12 @@ if __name__ == "__main__":
     # To decompose
     # python split.py -m cut -f /path/to/file
     # To rebuild your file
-    # python split.py -m pull -f /path/to/reconstructed_file -j json_map.json -c ./chunk_dir/
+    # python split.py -m pull -f /path/to/reconstructed_file -j json_map.json
     prs = argparse.ArgumentParser()
     prs.add_argument('-m', '--mode', help='Split mode (pull/cut or p/c)', type=str)
     prs.add_argument('-f', '--file_name', help='File name to be compute (the file to decompose or to rebuild)',
                      required=True, type=str)
     prs.add_argument('-j', '--json_map', help='Json Map of the file', type=str)
-    prs.add_argument('-c', '--chunk_directory', help='The directory where chunks are saved', default="./chunks/",
-                     type=str)
     prs = prs.parse_args()
 
     # We instantiate and pass the path of the file we ant to split, the debug mode is just to see logs

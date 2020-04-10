@@ -10,3 +10,4 @@ config.txt
 .idea
 *.json
 *.txt
+static/*

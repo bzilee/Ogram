@@ -56,6 +56,7 @@ def upload_chunk(chat_id, file_name):
     values = {
         'chat_id': chat_id
     }
+    r = None
     try:
         r = requests.post(url, files=files, data=values)
     except Exception as es:
@@ -284,8 +285,8 @@ def get_file(json_map_path):
 
 
 # For tests
-json_path = send_file("267092256", "/home/d4rk3r/Downloads/Telegram Desktop/video_2020-01-07_11-18-13.mp4")
-print("[+] json_path: ", json_path)
-
-# json_path = "/home/d4rk3r/ACTUALC/vagrant/PYTHON/github/json_maps/m_7cb6c6c955bd01948ce2b0fc218d6d05.json"
-get_file(json_path)
+# json_path = send_file("267092256", "/home/d4rk3r/Downloads/Telegram Desktop/video_2020-01-07_11-18-13.mp4")
+# print("[+] json_path: ", json_path)
+#
+# # json_path = "/home/d4rk3r/ACTUALC/vagrant/PYTHON/github/json_maps/m_7cb6c6c955bd01948ce2b0fc218d6d05.json"
+# get_file(json_path)

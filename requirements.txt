@@ -1,5 +1,9 @@
+# Telegram-bot
 requests
 setuptools
 configparser
-tinydb
 python-telegram-bot==12.3.0
+
+# Server
+flask>=1.1.2
+flask-cors==3.0.3
