@@ -203,6 +203,58 @@ def download_file(url, local_filename):
     return local_filename
 
 
+def download_all_chunk(sp, the_map):
+    """
+    This method will download all the chunks present on the json_map
+    :param sp:
+    :param the_map:
+    :return:
+    """
+    # We set the map
+    sp.set_map(the_map)
+
+    # For each chunk, we check it's date, if the tempory download link is down (date >= 2000) (600s -> 10mins)
+    # then we refresh it
+    # otherwise, we leave it as it
+    print("[+] Fetching chunks...")
+    for chk in the_map["cloud_map"]:
+        elapsed_time = seconds_elapsed(chk["datetime"])
+        print("[+] Elapsed_time: ", elapsed_time, "seconds")
+        # time passed 33mins
+        if elapsed_time >= 2000:
+            # We need to refresh it
+            # Now we fetch the tempory file path from file_id to get a new download_link
+            print("[+] Refreshing the direct-link, the tmp_link looks obsolete !")
+            file_id = chk["chunk_id"]
+            chk["tmp_link"] = get_direct_link(file_id)
+
+        # We download the chunk
+        download_file(chk["tmp_link"], sp.chunks_directory + chk["chunk_name"])
+
+    return sp
+
+
+def md5_checker(sp, saving_path):
+    """
+    A simple md5 chekcer to tell if the integrity have been respected
+    :param sp:
+    :param saving_path:
+    :return:
+    """
+    try:
+        print("[+] md5_sum checking...")
+        print("[+] Local md5 :", sp.get_map()["md5_sum"])
+        print("[+] Remote md5 :", get_md5_sum(saving_path))
+        # We check the md5 sha_sum
+        if get_md5_sum(saving_path) == sp.get_map()["md5_sum"]:
+            print("[+] md5_sum success match !")
+        else:
+            print("[x] md5_sum failed match !")
+
+    except Exception as es:
+        print("[x] Error when calculating the md5, please check again your file_path", es)
+
+
 def get_file(json_map_path):
     """
     This method is for getting the list of chunk
@@ -217,45 +269,23 @@ def get_file(json_map_path):
     # We read the json map
     with open(json_map_path, "r") as file_:
         the_map = json.loads(file_.read())
-        # e set the map
-        sp.set_map(the_map)
-
-        # For each chunk, we check it's date, if the tempory download link is down (date >= 2000) (600s -> 10mins)
-        # then we refresh it
-        # otherwise, we leave it as it
-        print("[+] Fetching chunks...")
-        for chk in the_map["cloud_map"]:
-            # time passed 33mins
-            if seconds_elapsed(chk["datetime"]) >= 2000:
-                # We need to refresh it
-                # Now we fetch the tempory file path from file_id to get a new download_link
-                file_id = chk["chunk_id"]
-                chk["tmp_link"] = get_direct_link(file_id)
-
-            # We download the chunk
-            download_file(chk["tmp_link"], sp.chunks_directory + chk["chunk_name"])
+        # We download all the chunks
+        sp = download_all_chunk(sp, the_map)
 
         # We rebuild the file
         saving_path = sp.data_directory + sp.get_map()["file"]["file_name"]
         sp.rebuild(saving_path)
+        # We check the md5 of the file
+        md5_checker(sp, saving_path)
 
-        try:
-            print("[+] md5_sum checking...")
-            print("[+] Local md5 :", sp.get_map()["md5_sum"])
-            print("[+] Remote md5 :", get_md5_sum(saving_path))
-            # We check the md5 sha_sum
-            if get_md5_sum(saving_path) == sp.get_map()["md5_sum"]:
-                print("[+] md5_sum success match !")
-            else:
-                print("[x] md5_sum failed match !")
+        print("[+] Your file {} have been successfully rebuilded !".format(saving_path))
 
-            print("[+] Your file {} have been successfully rebuilded !".format(saving_path))
-        except Exception as es:
-            print("[x] Error when calculating the md5, please check again your file_path", es)
+        return saving_path
 
 
-# json_path = send_file("267092256", "/home/d4rk3r/Downloads/Telegram Desktop/video_2020-01-07_11-18-13.mp4")
-# print("[+] json_path: ", json_path)
+# For tests
+json_path = send_file("267092256", "/home/d4rk3r/Downloads/Telegram Desktop/video_2020-01-07_11-18-13.mp4")
+print("[+] json_path: ", json_path)
 
-json_path = "/home/d4rk3r/ACTUALC/vagrant/PYTHON/github/json_maps/m_7cb6c6c955bd01948ce2b0fc218d6d05.json"
+# json_path = "/home/d4rk3r/ACTUALC/vagrant/PYTHON/github/json_maps/m_7cb6c6c955bd01948ce2b0fc218d6d05.json"
 get_file(json_path)

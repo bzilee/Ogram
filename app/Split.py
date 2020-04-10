@@ -132,7 +132,6 @@ class Split:
             i = 0
             print("\n[+] -----------")
             print("[+] Best divide ratio found !")
-            print("[+]", {"number_of_chunk": re_size["size"], "size_per_chunk": re_size["chunk"]})
             print("[+] FILENAME : " + str(file_name))
             print("[+] FILE-SIZE : " + str(len(to_print)))
 
