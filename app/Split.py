@@ -18,8 +18,10 @@ import argparse
 
 class Split:
 
-    def __init__(self, chunks_directory="./chunks/", maximum_size_per_chunk=15000000, minimum_number_of_chunk=3,
-                 maximum_number_of_chunk=99999):
+    def __init__(self, chunks_directory="./chunks/", json_map_directory="./json_maps/", data_directory="./datas/",
+                 maximum_size_per_chunk=10000000, minimum_number_of_chunk=3, maximum_number_of_chunk=99999):
+        self.data_directory = data_directory
+        self.json_map_directory = json_map_directory
         self.chunks_directory = chunks_directory
         self.maximum_size_per_chunk = maximum_size_per_chunk
         self.minimum_number_of_chunk = minimum_number_of_chunk
@@ -64,7 +66,7 @@ class Split:
             re_size['size'] = to_alternate
         return re_size
 
-    def rebuild(self, final_path, chunk_path, delete_residuals=False):
+    def rebuild(self, final_path, delete_residuals=False):
         """
         This method reconstruct the file
 
@@ -76,13 +78,18 @@ class Split:
         try:
             map_ = self.map["file_map"]
             map_ = {int(k): v for k, v in map_.items()}
-            print("[+] Remake started...")
+            print("[+] Rebuild started...")
+
+            if not path.exists(self.data_directory):
+                print("[+] Creating the datas dir")
+                makedirs(self.data_directory)
+
             try:
                 file_content_string = ""
                 for i in range(0, len(map_)):
-                    file_content_string += open(chunk_path + map_[i], "r").read()
+                    file_content_string += open(self.chunks_directory + map_[i], "r").read()
                     if delete_residuals:
-                        remove(chunk_path + map_[i])
+                        remove(self.chunks_directory + map_[i])
                 file_content = b64.b64decode(file_content_string)
                 with open(final_path, "wb") as f:
                     f.write(file_content)
@@ -98,10 +105,15 @@ class Split:
         """
             This method will write on a json map
         """
-        json_map_file_name = "m_" + (file_name.replace(" ", "").split("/")[-1]) + ".json"
+        # We check if the directory chunks doesn't exist, then, we create it
+        if not path.exists(self.json_map_directory):
+            makedirs(self.json_map_directory)
+
+        json_map_file_name = self.json_map_directory + "/m_" + (file_name.replace(" ", "").split("/")[-1]) + ".json"
         with open(json_map_file_name, 'w+') as json_file_map:
             json.dump(self.map, json_file_map)
             print("[+] Map saved in '" + json_map_file_name + "'")
+        return json_map_file_name
 
     def decompose(self, file_name):
         """
@@ -165,6 +177,6 @@ if __name__ == "__main__":
         s.decompose(prs.file_name)
     elif (prs.mode.lower() == "pull" or prs.mode.lower() == "p") and prs.json_map is not None:
         # We rebuild the file
-        s.rebuild(prs.file_name, prs.json_map, prs.chunk_directory, delete_residuals=True)
+        s.rebuild(prs.json_map, delete_residuals=True)
     else:
         print("[x] Something went wrong, make sure to well provided parameters as specified")
