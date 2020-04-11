@@ -18,7 +18,12 @@ app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 @cross_origin(supports_credentials=True)
 def index():
     # Build the response
-    response = jsonify({'status': 'success', 'message': 'Welcome to Ogram API.'})
+    response = jsonify({
+        'status': 'success',
+        'author': 'sanix-darker (github.com/sanix-darker)',
+        'documentation': 'https://documenter.getpostman.com/view/2696027/SzYgRaw1?version=latest',
+        'message': 'Welcome to Ogram API.'
+    })
     # Let's allow all Origin requests
     response.headers.add('Access-Control-Allow-Origin', '*')  # To prevent Cors issues
     return response
