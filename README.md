@@ -11,8 +11,8 @@
 ## Links
 
 Ogram split a file >= 19MB, in multiples chunks and send it throught the Telegram-bot. All the links of the running project :
-- [THE BOT-LINK (omega_gram_bot)](https://t.me/omega_gram_bot) <br>
-- [THE API-LINK (ogram_api)](https://ogram_api.ngrok.io)
+- [TEMPORY DEMO BOT-LINK (omega_gram_bot)](https://t.me/omega_gram_bot) <br>
+- [TEMPORY DEMO API-LINK (ogram_api)](https://ogram_api.ngrok.io)
 - [THE DOCUMENTATION-API](https://documenter.getpostman.com/view/2696027/SzYgRaw1?version=latest)
 
 ## Requirements
