@@ -48,17 +48,26 @@ def upload():
             else:
                 print("[+] Uploading file in static !")
                 filename = secure_filename(file.filename)
-                file.save(path.join(app.config['UPLOAD_FOLDER'], filename))
 
-                json_path = send_file(chat_id, "./app/server/static/" + filename)
+                message = ""
+                file.save(path.join(app.config['UPLOAD_FOLDER'], filename))
+                json_path = "./json_maps/m_" + \
+                            get_md5_sum("./app/server/static/" + filename).replace(" ", "").split("/")[-1] + ".json"
+
+                if path.exists(json_path):
+                    # We don't save the file and return the json-map
+                    message = 'Your file ' + filename + ' was already saved on telegram servers!'
+                else:
+                    # We save the file and return the json-map path
+                    json_path = send_file(chat_id, "./app/server/static/" + filename)
+                    message = 'Your file ' + filename + ' have been saved successfully !'
 
                 response = jsonify({
                     'status': 'success',
-                    'message': 'Your file ' + filename + ' have been saved successfully !',
+                    'message': message,
                     'file_key': json_path.split("/")[-1].split("_")[1].split(".")[0],
                     'json_map': json.loads(open(json_path).read())
                 })
-
                 # We delete the original file
                 remove("./app/server/static/" + filename)
         else:
